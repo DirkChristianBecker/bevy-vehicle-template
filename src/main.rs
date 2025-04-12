@@ -17,7 +17,7 @@ fn main() {
         ))
         .add_plugins(InfiniteGridPlugin)
         .add_systems(Startup, (setup_graphics, setup_environment, setup_physics))
-        .add_systems(Update, car_controller)
+        .add_systems(Update, (car_controller, app_controller))
         .run();
 }
 
@@ -270,6 +270,15 @@ fn setup_physics(mut commands: Commands) {
             Sleeping::disabled(),
             ImpulseJoint::new(axle_id, TypedJoint::GenericJoint(wheel_joint)),
         ));
+    }
+}
+
+fn app_controller(
+    keys: Res<ButtonInput<KeyCode>>,
+    mut exit: EventWriter<AppExit>
+) {
+    if keys.pressed(KeyCode::Escape) {
+        exit.send(AppExit::Success);
     }
 }
 
