@@ -20,7 +20,7 @@ A - steer left
 
 D - steer right
 
-
+ESC - Quit App
 
 ## Camera
 
